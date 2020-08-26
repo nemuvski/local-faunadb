@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  db:
+    # https://hub.docker.com/r/fauna/faunadb
+    image: fauna/faunadb:latest
+    container_name: local_faunadb
+    ports:
+      # FaunaDB endpoint
+      - 8443:8443
+      # GraphQL endpoint
+      - 8084:8084
+    volumes:
+      - lib:/var/lib/faunadb
+      - log:/var/log/faunadb
+    logging:
+      driver: json-file
+      options:
+        max-size: '5m'
+        max-file: '1'
+
+volumes:
+  lib:
+    driver: local
+  log:
+    driver: local
